@@ -1,0 +1,20 @@
+{
+  "name": "bid-manager-skills",
+  "interface": {
+    "displayName": "Bid Manager Skills"
+  },
+  "plugins": [
+    {
+      "name": "bid-manager-skills",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/AutoRFP/bid-manager-skills.git"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

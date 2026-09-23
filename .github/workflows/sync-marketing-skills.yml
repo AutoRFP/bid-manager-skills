@@ -1,0 +1,57 @@
+name: Sync marketing skills
+
+on:
+  schedule:
+    - cron: "0 3 1,15 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install
+      - name: Require the marketing-site token
+        env:
+          MARKETING_SITE_READ_TOKEN: ${{ secrets.MARKETING_SITE_READ_TOKEN }}
+        run: |
+          if [ -z "$MARKETING_SITE_READ_TOKEN" ]; then
+            echo "Set the MARKETING_SITE_READ_TOKEN secret with read access to ConquestCapital/site."
+            exit 1
+          fi
+      - name: Sync skills
+        env:
+          GH_TOKEN: ${{ secrets.MARKETING_SITE_READ_TOKEN }}
+        run: npm run sync
+      - name: Open a pull request when skills change
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet; then
+            echo "No skill changes."
+            exit 0
+          fi
+          branch="sync/marketing-skills-$(date -u +%Y%m%d)"
+          git checkout -b "$branch"
+          git add skills
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -m "Sync marketing skills"
+          git push --set-upstream origin "$branch"
+          gh pr create --title "Sync marketing skills" --body "$(cat <<'EOF'
+          ## Summary
+          - Synced published skills from the marketing site and the extra bid-manager pack.
+          - Left the AutoRFP MCP skills in this repo untouched.
+
+          ## Test plan
+          - [ ] `npm test`
+          - [ ] `npm run validate`
+          - [ ] Confirm denied MCP-plugin skills were not imported
+
+          EOF
+          )"

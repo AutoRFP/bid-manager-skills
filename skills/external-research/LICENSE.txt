@@ -1,0 +1,9 @@
+Additional Use Grant:
+
+You may use, copy, modify, and create derivative works of the Licensed Work
+for internal business purposes, including commercial purposes.
+
+You may not use the Licensed Work, or any derivative work, to provide,
+host, resell, white-label, distribute, or offer a product or service that
+competes with AutoRFP.ai’s RFP, DDQ, security-questionnaire, or proposal-
+automation offerings, without a separate commercial licence from the Licensor.

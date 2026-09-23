@@ -1,0 +1,42 @@
+{
+  "marketingRepo": "ConquestCapital/site",
+  "marketingRef": "main",
+  "packagesPath": "frontend/src/data/skill-packages",
+  "cmsPath": "frontend/src/data/skills",
+  "denyPackageIds": [
+    "rfp-shredder",
+    "rfp-contradiction-checker",
+    "rfp-contradiction-checker-agent-skill",
+    "executive-summary-generator",
+    "rfp-executive-summary-generator",
+    "rfp-executive-summary-generator-agent-skill"
+  ],
+  "denyDirNames": [
+    "rfp-shredder",
+    "rfp-contradiction-checker",
+    "rfp-contradiction-checker-agent-skill",
+    "executive-summary-generator",
+    "rfp-executive-summary-generator",
+    "rfp-executive-summary-generator-agent-skill"
+  ],
+  "extraSkills": [
+    {
+      "repo": "ConquestCapital/bid-manager-rfp-skills",
+      "ref": "main",
+      "path": "skills/win-theme-generator",
+      "folder": "win-theme-generator"
+    },
+    {
+      "repo": "ConquestCapital/bid-manager-rfp-skills",
+      "ref": "main",
+      "path": "skills/conversational-intelligence-analyzer",
+      "folder": "conversational-intelligence-analyzer"
+    }
+  ],
+  "protected": [
+    "autorfp-ai-library-clean",
+    "autorfp-ai-draft-blank-responses",
+    "autorfp-ai-project-coverage",
+    "autorfp-setup"
+  ]
+}

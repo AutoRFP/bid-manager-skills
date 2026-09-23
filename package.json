@@ -1,0 +1,17 @@
+{
+  "name": "bid-manager-skills",
+  "private": true,
+  "type": "module",
+  "description": "AutoRFP.ai bid-manager skills plugin for Claude, Copilot, and ChatGPT.",
+  "scripts": {
+    "sync": "node scripts/sync-marketing-skills.mjs",
+    "validate": "node scripts/validate-plugin.mjs",
+    "test": "node --test scripts/lib/marketing-sync.test.mjs"
+  },
+  "devDependencies": {
+    "yaml": "^2.8.1"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
