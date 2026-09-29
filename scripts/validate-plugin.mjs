@@ -37,12 +37,10 @@ if (plugin.homepage !== 'https://autorfp.ai/skills/') {
 }
 if (!existsSync(join(repoRoot, '.claude-plugin/icon.svg'))) fail('.claude-plugin/icon.svg is required');
 if (!plugin.description) fail('Claude plugin description is required');
-if (plugin.userConfig?.api_host?.default !== 'api.autorfp.ai') {
-  fail('api_host default must be api.autorfp.ai');
+if (plugin.userConfig !== undefined) {
+  fail('Claude plugin must not declare userConfig; MCP URL is pinned to the registered APAC endpoint');
 }
-if (plugin.userConfig?.api_host?.options !== undefined) {
-  fail('api_host must not use options; the Claude directory rejects that key');
-}
+const apacMcpUrl = 'https://api.app.autorfp.ai/mcp';
 if (marketplace.name !== 'bid-manager-skills') fail('marketplace name must be bid-manager-skills');
 if (marketplace.description) fail('marketplace description must live under metadata for claude plugin validate');
 if (!marketplace.metadata?.description) fail('marketplace metadata.description is required');
@@ -55,11 +53,11 @@ if (agentPlugin.name !== plugin.name) fail('Agent Plugins name must match the Cl
 if (agentMcp.$schema !== 'https://agent-plugins.org/schemas/1.0.0/mcp.schema.json') {
   fail('mcp.json must declare the Agent Plugins MCP schema');
 }
-if (agentMcp.mcpServers?.['autorfp-ai']?.url !== 'https://api.autorfp.ai/mcp') {
-  fail('Agent Plugins MCP URL must be the APAC AutoRFP endpoint');
+if (agentMcp.mcpServers?.['autorfp-ai']?.url !== apacMcpUrl) {
+  fail('Agent Plugins MCP URL must be the registered APAC AutoRFP endpoint');
 }
-if (claudeMcp.mcpServers?.['autorfp-ai']?.url !== 'https://${user_config.api_host}/mcp') {
-  fail('Claude MCP URL must use the region userConfig host');
+if (claudeMcp.mcpServers?.['autorfp-ai']?.url !== apacMcpUrl) {
+  fail('Claude MCP URL must match the registered APAC AutoRFP endpoint');
 }
 if (copilotMarketplace.plugins?.[0]?.name !== plugin.name) fail('Copilot marketplace plugin name drifted');
 

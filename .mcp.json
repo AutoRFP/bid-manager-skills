@@ -2,7 +2,7 @@
   "mcpServers": {
     "autorfp-ai": {
       "type": "http",
-      "url": "https://${user_config.api_host}/mcp"
+      "url": "https://api.app.autorfp.ai/mcp"
     }
   }
 }

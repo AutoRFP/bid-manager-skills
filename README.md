@@ -19,15 +19,17 @@ Local check:
 claude --plugin-dir .
 ```
 
-On first enable, pick the AutoRFP region that matches your login URL. Then connect the AutoRFP connector and approve `tags:read`, `projects:read`, and `content:read`. The setup skill `autorfp-setup` walks through that.
+This plugin bundles the registered APAC MCP at `https://api.app.autorfp.ai/mcp`. Connect the AutoRFP connector and approve `tags:read`, `projects:read`, and `content:read`. The setup skill `autorfp-setup` walks through that.
+
+For EU or US workspaces, enable the [AutoRFP.ai connector](https://claude.com/connectors/autorfp-ai) in Claude settings (or add a custom connector) instead of relying on the bundled server:
 
 | Region | MCP server URL |
 | --- | --- |
-| APAC | `https://api.autorfp.ai/mcp` |
+| APAC | `https://api.app.autorfp.ai/mcp` (bundled with this plugin) |
 | EU | `https://api.eu.autorfp.ai/mcp` |
 | US | `https://api.us.autorfp.ai/mcp` |
 
-See [How to Integrate with Claude](https://learn.autorfp.ai/en/articles/15031130-how-to-integrate-with-claude) for the same regional URLs.
+See [How to Integrate with Claude](https://learn.autorfp.ai/en/articles/15031130-how-to-integrate-with-claude) for connector setup.
 
 The MCP cannot write back to AutoRFP.ai. Blank-response drafts stay in the chat until someone pastes them into the project.
 
@@ -54,7 +56,7 @@ A local install:
 copilot plugin install .
 ```
 
-Copilot and ChatGPT pin the APAC MCP URL `https://api.autorfp.ai/mcp`. Change that URL in the client for EU or US.
+Copilot and ChatGPT pin the APAC MCP URL `https://api.app.autorfp.ai/mcp`. Change that URL in the client for EU or US.
 
 VS Code can add the same GitHub repo under `chat.plugins.marketplaces`.
 
@@ -65,7 +67,7 @@ GitHub's default catalogs are `copilot-plugins` and `awesome-copilot`. There is 
 The same Agent Plugins files are the package. ChatGPT can also read `.agents/plugins/marketplace.json`.
 
 1. In ChatGPT, open Settings, then Security and login, and turn on Developer mode.
-2. Add the MCP server `https://api.autorfp.ai/mcp` (or the EU or US host).
+2. Add the MCP server `https://api.app.autorfp.ai/mcp` (or the EU or US host).
 3. Install this plugin from the repo marketplace, or from a personal marketplace pointed at this checkout.
 4. Start a new chat before using the skills.
 
@@ -95,7 +97,7 @@ Listing metadata lives in `.claude-plugin/plugin.json`: `displayName`, `homepage
 Some directory policy holds are expected and need a reviewer note, not a repo change:
 
 - **Lockfile.** `package.json` and `package-lock.json` exist so CI can install `yaml` for the marketing-site sync. Enabling the plugin does not launch an npm server. The directory hold `LOCKFILE_AUTO_INSTALL` is for a reviewer to clear.
-- **Credential.** The only credential string in the repo is `MARKETING_SITE_READ_TOKEN` in `.github/workflows/sync-marketing-skills.yml`. That GitHub Actions secret clones the marketing site during sync. It is not read when the plugin is installed, and it is not sent to `https://api.autorfp.ai/mcp`. The MCP uses per-user OAuth (`tags:read`, `projects:read`, `content:read`), which matches the [directory policy](https://support.claude.com/en/articles/13145358-anthropic-software-directory-policy) for a remote server.
+- **Credential.** The only credential string in the repo is `MARKETING_SITE_READ_TOKEN` in `.github/workflows/sync-marketing-skills.yml`. That GitHub Actions secret clones the marketing site during sync. It is not read when the plugin is installed, and it is not sent to `https://api.app.autorfp.ai/mcp`. The MCP uses per-user OAuth (`tags:read`, `projects:read`, `content:read`), which matches the [directory policy](https://support.claude.com/en/articles/13145358-anthropic-software-directory-policy) for a remote server.
 - **Name.** `bid-manager-skills` is a fuzzy match for the unrelated directory connector `all-manager` and publisher `AllManager`. It is not that product. Keep the plugin id. The listing title stays **Bid Manager Skills**.
 
 ## Sync from the marketing site

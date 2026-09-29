@@ -3,7 +3,7 @@
   "mcpServers": {
     "autorfp-ai": {
       "type": "streamable-http",
-      "url": "https://api.autorfp.ai/mcp"
+      "url": "https://api.app.autorfp.ai/mcp"
     }
   }
 }

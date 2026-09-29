@@ -13,25 +13,24 @@ If the AutoRFP MCP plugin is already connected, use that server. Disable this pl
 
 ## Region
 
-This plugin prompts for an API host. Use the host that matches the AutoRFP.ai login URL.
+This plugin bundles the registered APAC endpoint. EU and US users should enable the [AutoRFP.ai connector](https://claude.com/connectors/autorfp-ai) in Claude (or add a custom connector) for their region.
 
 | Region | MCP server URL |
 | --- | --- |
-| APAC | `https://api.autorfp.ai/mcp` |
+| APAC | `https://api.app.autorfp.ai/mcp` (bundled with this plugin) |
 | EU | `https://api.eu.autorfp.ai/mcp` |
 | US | `https://api.us.autorfp.ai/mcp` |
 
-In Claude, the plugin prompts for `api_host` as a host string (not a fixed list). Enter `api.autorfp.ai`, `api.eu.autorfp.ai`, or `api.us.autorfp.ai` so the bundled MCP URL matches your region.
-
-Copilot and ChatGPT packages pin APAC (`https://api.autorfp.ai/mcp`). For EU or US, change the server URL in the client settings to `https://api.eu.autorfp.ai/mcp` or `https://api.us.autorfp.ai/mcp`.
+Copilot and ChatGPT packages pin APAC (`https://api.app.autorfp.ai/mcp`). For EU or US, change the server URL in the client settings to `https://api.eu.autorfp.ai/mcp` or `https://api.us.autorfp.ai/mcp`.
 
 ## Claude
 
 1. Enable this plugin.
-2. Set the API host if the default is not your region.
-3. Open Settings, then Connectors, and connect AutoRFP.ai.
-4. Approve `tags:read`, `projects:read`, and `content:read`.
-5. Enable the connector in the next chat.
+2. Open Settings, then Connectors, and connect AutoRFP.ai.
+3. Approve `tags:read`, `projects:read`, and `content:read`.
+4. Enable the connector in the next chat.
+
+If the user's workspace is in EU or US, they need the directory connector (or a custom connector) for that region instead of only the bundled APAC server.
 
 Each person signs in with their own AutoRFP.ai user. The assistant only sees what that user can see in the product.
 
