@@ -19,7 +19,15 @@ Local check:
 claude --plugin-dir .
 ```
 
-On first enable, set the AutoRFP API host. The default is APAC, `api.autorfp.ai`. EU is `api.eu.autorfp.ai`. US is `api.us.autorfp.ai`. Then connect the AutoRFP connector and approve `tags:read`, `projects:read`, and `content:read`. The setup skill `autorfp-setup` walks through that.
+On first enable, pick the AutoRFP region that matches your login URL. Then connect the AutoRFP connector and approve `tags:read`, `projects:read`, and `content:read`. The setup skill `autorfp-setup` walks through that.
+
+| Region | MCP server URL |
+| --- | --- |
+| APAC | `https://api.autorfp.ai/mcp` |
+| EU | `https://api.eu.autorfp.ai/mcp` |
+| US | `https://api.us.autorfp.ai/mcp` |
+
+See [How to Integrate with Claude](https://learn.autorfp.ai/en/articles/15031130-how-to-integrate-with-claude) for the same regional URLs.
 
 The MCP cannot write back to AutoRFP.ai. Blank-response drafts stay in the chat until someone pastes them into the project.
 

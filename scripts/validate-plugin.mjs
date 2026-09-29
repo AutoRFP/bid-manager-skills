@@ -25,8 +25,14 @@ if (plugin.privacyPolicyUrl !== 'https://autorfp.ai/privacy') {
 }
 if (!existsSync(join(repoRoot, '.claude-plugin/icon.svg'))) fail('.claude-plugin/icon.svg is required');
 if (!plugin.description) fail('Claude plugin description is required');
+const apiHostOptions = ['api.autorfp.ai', 'api.eu.autorfp.ai', 'api.us.autorfp.ai'];
 if (plugin.userConfig?.api_host?.default !== 'api.autorfp.ai') {
   fail('api_host default must be api.autorfp.ai');
+}
+if (
+  JSON.stringify(plugin.userConfig?.api_host?.options) !== JSON.stringify(apiHostOptions)
+) {
+  fail('api_host options must list APAC, EU, and US hosts');
 }
 if (marketplace.name !== 'bid-manager-skills') fail('marketplace name must be bid-manager-skills');
 if (marketplace.description) fail('marketplace description must live under metadata for claude plugin validate');

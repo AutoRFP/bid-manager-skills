@@ -15,11 +15,13 @@ If the AutoRFP MCP plugin is already connected, use that server. Disable this pl
 
 This plugin prompts for an API host. Use the host that matches the AutoRFP.ai login URL.
 
-| Region | Host |
+| Region | MCP server URL |
 | --- | --- |
-| APAC | `api.autorfp.ai` |
-| EU | `api.eu.autorfp.ai` |
-| US | `api.us.autorfp.ai` |
+| APAC | `https://api.autorfp.ai/mcp` |
+| EU | `https://api.eu.autorfp.ai/mcp` |
+| US | `https://api.us.autorfp.ai/mcp` |
+
+In Claude, the plugin prompts for `api_host` (`api.autorfp.ai`, `api.eu.autorfp.ai`, or `api.us.autorfp.ai`) so the bundled MCP URL matches your region.
 
 Copilot and ChatGPT packages pin APAC (`https://api.autorfp.ai/mcp`). For EU or US, change the server URL in the client settings to `https://api.eu.autorfp.ai/mcp` or `https://api.us.autorfp.ai/mcp`.
 
