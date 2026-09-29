@@ -17,8 +17,6 @@ jobs:
       - run: npm test
       - run: npm run validate
       - name: Install Claude Code
-        run: curl -fsSL https://claude.ai/install.sh | bash
+        run: npm install -g @anthropic-ai/claude-code@2.1.284
       - name: Validate the Claude plugin
-        run: |
-          export PATH="$HOME/.local/bin:$PATH"
-          node scripts/claude-validate.mjs
+        run: node scripts/claude-validate.mjs

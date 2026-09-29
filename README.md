@@ -82,6 +82,14 @@ Submit one of these while signed in as an owner, admin, or a Console role that c
 
 The claude.ai form needs a Team or Enterprise organization. Console is the path for an individual author. After approval, new commits on this repo are picked up without another form. Bump `version` in `.claude-plugin/plugin.json` and `plugin.json` when you want a named release.
 
+Listing metadata lives in `.claude-plugin/plugin.json` (`displayName`, `privacyPolicyUrl` at `https://autorfp.ai/privacy`, and `.claude-plugin/icon.svg`).
+
+Some directory policy holds are expected and need a reviewer note, not a repo change:
+
+- **Lockfile.** `package.json` and `package-lock.json` are for the marketing-site sync in CI only. Installing the plugin does not run `npm install`.
+- **Credential.** The bundled MCP uses OAuth per user against `https://${user_config.api_host}/mcp`. The plugin does not read API keys from the installer's machine.
+- **Name collision.** This bundle complements the existing [AutoRFP.ai connector](https://claude.com/connectors/autorfp-ai). The listing title is **Bid Manager Skills**; the MCP server id stays `autorfp-ai` so the three AutoRFP skills can call the same connector.
+
 ## Sync from the marketing site
 
 Published skills come from `ConquestCapital/site` `frontend/src/data/skill-packages`, using the same CMS rules as autorfp.ai/skills. Drafts, coming-soon packs, and the MCP-plugin denylist are skipped. `win-theme-generator` and `conversational-intelligence-analyzer` are copied from `ConquestCapital/bid-manager-rfp-skills` until the marketing site publishes them.

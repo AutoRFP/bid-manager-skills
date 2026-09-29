@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" role="img" aria-label="Bid Manager Skills">
+  <rect width="128" height="128" rx="24" fill="#0F172A"/>
+  <path fill="#38BDF8" d="M32 36h64v8H32zm0 20h48v8H32zm0 20h56v8H32zm0 20h40v8H32z"/>
+  <circle cx="96" cy="96" r="14" fill="#22C55E"/>
+  <path fill="#0F172A" d="M90 96l4 4 8-10 4 3-12 15-8-8z"/>
+</svg>

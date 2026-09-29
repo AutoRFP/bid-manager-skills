@@ -9,7 +9,7 @@ metadata:
 
 # Customer Brief Research
 
-Consume `customer-brief.md`; create `research-pack.md`; and use [the editable worksheet](../assets/Customer-Brief-Research-Worksheet.docx) as the structured work surface.
+Consume `customer-brief.md`; create `research-pack.md`; and use [the editable worksheet](../assets/Customer-Brief-Research-Worksheet.md) as the structured work surface.
 
 ## Workflow
 

@@ -12,9 +12,8 @@ except ImportError:
         import fitz
     except ImportError as exc:
         raise SystemExit(
-            "PDF annotation requires PyMuPDF. Install it with "
-            "`python -m pip install -r scripts/requirements.txt`, or use the "
-            "evidence-ledger fallback documented in references/pdf-insight-finder.md."
+            "PDF annotation requires PyMuPDF. Use the pdf-evidence-ledger fallback "
+            "in SKILL.md when PyMuPDF is not available."
         ) from exc
 
 COLOURS = {

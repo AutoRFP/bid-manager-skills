@@ -12,7 +12,7 @@
       "name": "bid-manager-skills",
       "source": "./",
       "description": "Bid-manager skills for qualification, compliance, competitive positioning, and customer research. Three AutoRFP.ai skills run when the AutoRFP MCP is connected.",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "AutoRFP.ai",
         "email": "support@autorfp.ai"

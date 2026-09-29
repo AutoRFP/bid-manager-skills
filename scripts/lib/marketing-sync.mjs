@@ -124,9 +124,28 @@ const copyFiltered = (src, dest, denyDirNames) => {
       const name = basename(source);
       if (source !== src && denyDirNames.has(name)) return false;
       if (SKIP_NAMES.has(name) || name.startsWith('.')) return false;
+      if (/\.docx$/i.test(name)) return false;
       return true;
     },
   });
+};
+
+export const finalizeCustomerBriefResearch = (skillDir, worksheetMarkdown) => {
+  const skillPath = join(skillDir, 'SKILL.md');
+  if (!existsSync(skillPath)) return;
+  const source = readFileSync(skillPath, 'utf8').replaceAll(
+    'Customer-Brief-Research-Worksheet.docx',
+    'Customer-Brief-Research-Worksheet.md',
+  );
+  writeFileSync(skillPath, source);
+  const assetsDir = join(skillDir, 'assets');
+  mkdirSync(assetsDir, { recursive: true });
+  for (const entry of readdirSync(assetsDir)) {
+    if (entry.toLowerCase().endsWith('.docx')) {
+      rmSync(join(assetsDir, entry), { force: true });
+    }
+  }
+  writeFileSync(join(assetsDir, 'Customer-Brief-Research-Worksheet.md'), worksheetMarkdown);
 };
 
 export const normalizeSkillName = (skillDir, folderName) => {
@@ -171,6 +190,7 @@ export const importMarketingSkills = ({
   sha,
   denyPackageIds,
   denyDirNames,
+  customerBriefWorksheetMarkdown,
 }) => {
   const denyDirs = new Set(denyDirNames);
   const items = publishedItems(listCmsItems(cmsDir), denyPackageIds);
@@ -200,6 +220,9 @@ export const importMarketingSkills = ({
       workflow: item.workflow,
       originalName: typeof original.data.name === 'string' ? original.data.name : '',
     });
+    if (item.slug === 'customer-brief-research' && customerBriefWorksheetMarkdown) {
+      finalizeCustomerBriefResearch(destDir, customerBriefWorksheetMarkdown);
+    }
     imported.push(item.slug);
   }
 

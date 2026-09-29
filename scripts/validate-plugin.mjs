@@ -19,6 +19,11 @@ const copilotMarketplace = readJson(join(repoRoot, '.github/plugin/marketplace.j
 const config = readJson(join(repoRoot, 'scripts/sync-config.json'));
 
 if (plugin.name !== 'bid-manager-skills') fail('Claude plugin name must be bid-manager-skills');
+if (plugin.displayName !== 'Bid Manager Skills') fail('Claude plugin displayName must be Bid Manager Skills');
+if (plugin.privacyPolicyUrl !== 'https://autorfp.ai/privacy') {
+  fail('Claude plugin privacyPolicyUrl must be https://autorfp.ai/privacy');
+}
+if (!existsSync(join(repoRoot, '.claude-plugin/icon.svg'))) fail('.claude-plugin/icon.svg is required');
 if (!plugin.description) fail('Claude plugin description is required');
 if (plugin.userConfig?.api_host?.default !== 'api.autorfp.ai') {
   fail('api_host default must be api.autorfp.ai');
@@ -85,6 +90,20 @@ for (const name of skillDirs) {
   }
   const shredder = join(skillsDir, name, 'rfp-shredder');
   if (existsSync(shredder)) fail(`${name} still contains rfp-shredder`);
+}
+
+const findDocx = (directory) => {
+  const found = [];
+  for (const entry of readdirSync(directory, { withFileTypes: true })) {
+    if (entry.name === 'node_modules' || entry.name === '.git') continue;
+    const full = join(directory, entry.name);
+    if (entry.isDirectory()) found.push(...findDocx(full));
+    else if (entry.name.toLowerCase().endsWith('.docx')) found.push(full);
+  }
+  return found;
+};
+for (const docxPath of findDocx(repoRoot)) {
+  fail(`plugin must not ship .docx files: ${docxPath.replace(`${repoRoot}/`, '')}`);
 }
 
 if (errors.length) {

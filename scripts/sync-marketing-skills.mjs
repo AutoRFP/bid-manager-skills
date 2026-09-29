@@ -52,6 +52,10 @@ try {
   ]);
   cleanups.push(marketing.dir);
 
+  const customerBriefWorksheetMarkdown = readFileSync(
+    join(repoRoot, 'skills/customer-brief-research/assets/Customer-Brief-Research-Worksheet.md'),
+    'utf8',
+  );
   const imported = importMarketingSkills({
     packagesDir: join(marketing.dir, config.packagesPath),
     cmsDir: join(marketing.dir, config.cmsPath),
@@ -60,6 +64,7 @@ try {
     sha: marketing.sha,
     denyPackageIds: config.denyPackageIds,
     denyDirNames: config.denyDirNames,
+    customerBriefWorksheetMarkdown,
   });
 
   const extraRepos = new Map();
