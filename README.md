@@ -82,13 +82,13 @@ Submit one of these while signed in as an owner, admin, or a Console role that c
 
 The claude.ai form needs a Team or Enterprise organization. Console is the path for an individual author. After approval, new commits on this repo are picked up without another form. Bump `version` in `.claude-plugin/plugin.json` and `plugin.json` when you want a named release.
 
-Listing metadata lives in `.claude-plugin/plugin.json` (`displayName`, `privacyPolicyUrl` at `https://autorfp.ai/privacy`, and `.claude-plugin/icon.svg`).
+Listing metadata lives in `.claude-plugin/plugin.json` (`displayName`, `privacyPolicyUrl` at `https://autorfp.ai/privacy`, and `.claude-plugin/icon.svg`). The directory reads `privacyPolicyUrl` for the listing; Claude Code ignores that key at load time. Root `plugin.json` stays for Copilot and ChatGPT.
 
 Some directory policy holds are expected and need a reviewer note, not a repo change:
 
-- **Lockfile.** `package.json` and `package-lock.json` are for the marketing-site sync in CI only. Installing the plugin does not run `npm install`.
-- **Credential.** The bundled MCP uses OAuth per user against `https://${user_config.api_host}/mcp`. The plugin does not read API keys from the installer's machine.
-- **Name collision.** This bundle complements the existing [AutoRFP.ai connector](https://claude.com/connectors/autorfp-ai). The listing title is **Bid Manager Skills**; the MCP server id stays `autorfp-ai` so the three AutoRFP skills can call the same connector.
+- **Lockfile.** `package.json` and `package-lock.json` exist so CI can install `yaml` for the marketing-site sync. Enabling the plugin does not launch an npm server. The directory hold `LOCKFILE_AUTO_INSTALL` is for a reviewer to clear.
+- **Credential.** The only credential string in the repo is `MARKETING_SITE_READ_TOKEN` in `.github/workflows/sync-marketing-skills.yml`. That GitHub Actions secret clones the marketing site during sync. It is not read when the plugin is installed, and it is not sent to `https://api.autorfp.ai/mcp`. The MCP uses per-user OAuth (`tags:read`, `projects:read`, `content:read`), which matches the [directory policy](https://support.claude.com/en/articles/13145358-anthropic-software-directory-policy) for a remote server.
+- **Name.** `bid-manager-skills` is a fuzzy match for the unrelated directory connector `all-manager` and publisher `AllManager`. It is not that product. Keep the plugin id. The listing title stays **Bid Manager Skills**.
 
 ## Sync from the marketing site
 
