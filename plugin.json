@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "bid-manager-skills",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Bid-manager skills for qualification, compliance, competitive positioning, and customer research. Three AutoRFP.ai skills run when the AutoRFP MCP is connected.",
   "author": {
     "name": "AutoRFP.ai",

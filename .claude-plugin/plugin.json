@@ -2,7 +2,7 @@
   "name": "bid-manager-skills",
   "displayName": "Bid Manager Skills",
   "description": "Bid-manager skills for qualification, compliance, competitive positioning, and customer research. Three AutoRFP.ai skills run when the AutoRFP MCP is connected. Regional MCP endpoints: https://api.autorfp.ai/mcp (APAC), https://api.eu.autorfp.ai/mcp (EU), https://api.us.autorfp.ai/mcp (US).",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "privacyPolicyUrl": "https://autorfp.ai/privacy",
   "author": {
     "name": "AutoRFP.ai",
@@ -26,7 +26,6 @@
       "type": "string",
       "title": "AutoRFP region",
       "description": "Match your AutoRFP.ai login region. APAC https://api.autorfp.ai/mcp, EU https://api.eu.autorfp.ai/mcp, US https://api.us.autorfp.ai/mcp.",
-      "options": ["api.autorfp.ai", "api.eu.autorfp.ai", "api.us.autorfp.ai"],
       "default": "api.autorfp.ai"
     }
   }
