@@ -23,6 +23,18 @@ if (plugin.displayName !== 'Bid Manager Skills') fail('Claude plugin displayName
 if (plugin.privacyPolicyUrl !== 'https://autorfp.ai/privacy') {
   fail('Claude plugin privacyPolicyUrl must be https://autorfp.ai/privacy');
 }
+if (plugin.termsOfServiceUrl !== 'https://autorfp.ai/legal/msa') {
+  fail('Claude plugin termsOfServiceUrl must be https://autorfp.ai/legal/msa');
+}
+if (
+  plugin.documentationUrl !==
+  'https://learn.autorfp.ai/en/articles/15029444-how-to-connect-to-ai-assistants-mcp-server'
+) {
+  fail('Claude plugin documentationUrl must point at the MCP setup article');
+}
+if (plugin.homepage !== 'https://autorfp.ai/skills/') {
+  fail('Claude plugin homepage must be https://autorfp.ai/skills/');
+}
 if (!existsSync(join(repoRoot, '.claude-plugin/icon.svg'))) fail('.claude-plugin/icon.svg is required');
 if (!plugin.description) fail('Claude plugin description is required');
 if (plugin.userConfig?.api_host?.default !== 'api.autorfp.ai') {

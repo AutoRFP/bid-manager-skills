@@ -1,14 +1,14 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "bid-manager-skills",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Bid-manager skills for qualification, compliance, competitive positioning, and customer research. Three AutoRFP.ai skills run when the AutoRFP MCP is connected.",
   "author": {
     "name": "AutoRFP.ai",
     "email": "support@autorfp.ai",
     "url": "https://autorfp.ai"
   },
-  "homepage": "https://learn.autorfp.ai/en/articles/15029444-how-to-connect-to-ai-assistants-mcp-server",
+  "homepage": "https://autorfp.ai/skills/",
   "repository": "https://github.com/AutoRFP/bid-manager-skills",
   "license": "Apache-2.0",
   "keywords": [
@@ -29,7 +29,9 @@
         "developerName": "AutoRFP.ai",
         "category": "Productivity",
         "capabilities": ["Read", "Write"],
-        "websiteURL": "https://autorfp.ai",
+        "websiteURL": "https://autorfp.ai/skills/",
+        "privacyPolicyURL": "https://autorfp.ai/privacy",
+        "termsOfServiceURL": "https://autorfp.ai/legal/msa",
         "defaultPrompt": [
           "Score this RFP and tell me whether we should bid.",
           "Build a compliance matrix from this tender pack.",

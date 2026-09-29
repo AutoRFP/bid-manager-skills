@@ -90,7 +90,7 @@ Submit one of these while signed in as an owner, admin, or a Console role that c
 
 The claude.ai form needs a Team or Enterprise organization. Console is the path for an individual author. After approval, new commits on this repo are picked up without another form. Bump `version` in `.claude-plugin/plugin.json` and `plugin.json` when you want a named release.
 
-Listing metadata lives in `.claude-plugin/plugin.json` (`displayName`, `privacyPolicyUrl` at `https://autorfp.ai/privacy`, and `.claude-plugin/icon.svg`). The directory reads `privacyPolicyUrl` for the listing; Claude Code ignores that key at load time. Root `plugin.json` stays for Copilot and ChatGPT.
+Listing metadata lives in `.claude-plugin/plugin.json`: `displayName`, `homepage` at `https://autorfp.ai/skills/`, `documentationUrl` for the [MCP setup article](https://learn.autorfp.ai/en/articles/15029444-how-to-connect-to-ai-assistants-mcp-server), `privacyPolicyUrl` at `https://autorfp.ai/privacy`, `termsOfServiceUrl` at `https://autorfp.ai/legal/msa`, and `.claude-plugin/icon.svg`. The directory reads those listing URLs; Claude Code may ignore keys it does not define at load time. Root `plugin.json` stays for Copilot and ChatGPT.
 
 Some directory policy holds are expected and need a reviewer note, not a repo change:
 
