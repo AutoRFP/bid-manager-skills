@@ -1,10 +1,52 @@
 # Bid Manager Skills
 
-Skills for bid managers. Qualification, compliance, competitor research, customer insight, and three AutoRFP.ai workflows that use the read-only AutoRFP MCP.
+Agent skills for bid and proposal teams, built by [AutoRFP.ai](https://autorfp.ai?utm_campaign=54747189-Github%20Plugin%20Bid%20Manager%20Skills&utm_source=github&utm_medium=bid-manager-skills-plugin&utm_content=readme). Install the plugin in Claude Code, GitHub Copilot, or ChatGPT and invoke skills in chat when you are qualifying opportunities, building compliance registers, researching buyers and competitors, or accelerating drafts from your content library.
 
-The AutoRFP MCP plugin stays in [AutoRFP/autorfp-ai-plugin](https://github.com/AutoRFP/autorfp-ai-plugin). This repo does not include the shredder, executive summary, or contradiction-checker skills from that plugin.
+## What you get
 
-If both plugins are installed, keep one AutoRFP MCP enabled.
+### Qualify and decide
+
+**AI Go/No-Go** — Upload tender packages, RFPs, or ITTs and get a structured bid/no-bid recommendation. The skill scores the opportunity against your company profile and a clear decision framework so leadership can commit resources with evidence, not gut feel.
+
+**Compliance Matrix Builder** — Turn dense procurement documents into a requirements register: mandatory clauses, evaluation criteria, and submission instructions in one matrix. Use it as the first structured step before anyone starts writing.
+
+### Competitive positioning
+
+**Competitor Intelligence** — Build battlecards and competitor profiles for a specific deal: products, pricing signals, strengths, weaknesses, and positioning. Works for named rivals or for discovering who you are likely to face in a market.
+
+**Win Theme Generator** — Develop differentiated win themes through a guided conversation: your proof points, the incumbent, evaluator priorities, and how to weave themes into the response you are already drafting.
+
+**Conversational Intelligence Analyzer** — Mine sales calls, Grain/Gong transcripts, and meeting notes for bid-ready insight: pain points, process, decision criteria, stakeholders, and incumbent solutions. Connect meeting tools via MCP or paste transcripts directly.
+
+### Responding to RFPs
+
+**Customer Brief Setup** — Start a shared customer brief using only facts your team is authorised to use, so research and drafting stay aligned and defensible.
+
+**Customer Brief Research** — Gather and source the customer brief from public or approved material when you need a solid foundation before the bid team writes.
+
+**Internal Research** — Fill the internal half of the customer-insight brief from CRM, email, meetings, notes, and recordings—what your team already knows about the account and opportunity.
+
+**External Research** — In one run, find the right public sources for the offering and produce a full trust-classified research report with buyer language and falsifiable facts for the external half of the brief.
+
+**Completed Insight Brief** — Merge internal and external research into one completed customer-insight brief the bid team can work from. Not a response rewrite—one authoritative brief document.
+
+**Response Insight Enricher** — Rewrite a draft answer with verified customer insight so responses sound specific to the buyer without inventing facts.
+
+**PDF Insight Finder** — Locate evidence in supplied PDFs and highlight it so writers and reviewers can cite the right passages quickly.
+
+**Build Google Dork** — Generate precise public-source Google queries when you need to find filings, announcements, or other open-web evidence efficiently.
+
+### AutoRFP.ai workflows
+
+These skills use the read-only [AutoRFP.ai MCP](https://learn.autorfp.ai/en/articles/15029444-how-to-connect-to-ai-assistants-mcp-server) when it is connected in your assistant.
+
+**AutoRFP Setup** — Connect AutoRFP.ai before library, coverage, or blank-response skills. Use it when tools are missing or you need the right connector for your region.
+
+**Library Clean** — Flag content-library rows that are blank, untagged, or stale but heavily reused so you can improve library hygiene before the next bid.
+
+**Project Coverage** — See how much of a project is already covered by approved library content, including gaps and weak matches, before drafting starts.
+
+**Draft Blank Responses** — Draft answers for unanswered project requirements from approved library content, with source links. Review in chat, then paste into AutoRFP.ai when you are ready.
 
 ## Install in Claude Code
 
@@ -19,27 +61,7 @@ Local check:
 claude --plugin-dir .
 ```
 
-This plugin bundles the registered APAC MCP at `https://api.app.autorfp.ai/mcp`. Connect the AutoRFP connector and approve `tags:read`, `projects:read`, and `content:read`. The setup skill `autorfp-setup` walks through that.
-
-For EU or US workspaces, enable the [AutoRFP.ai connector](https://claude.com/connectors/autorfp-ai) in Claude settings (or add a custom connector) instead of relying on the bundled server:
-
-| Region | MCP server URL |
-| --- | --- |
-| APAC | `https://api.app.autorfp.ai/mcp` (bundled with this plugin) |
-| EU | `https://api.eu.autorfp.ai/mcp` |
-| US | `https://api.us.autorfp.ai/mcp` |
-
 See [How to Integrate with Claude](https://learn.autorfp.ai/en/articles/15031130-how-to-integrate-with-claude) for connector setup.
-
-The MCP cannot write back to AutoRFP.ai. Blank-response drafts stay in the chat until someone pastes them into the project.
-
-## Skills that need the AutoRFP MCP
-
-- `autorfp-ai-library-clean` flags blank, untagged, and stale reused library rows.
-- `autorfp-ai-project-coverage` scores one project against the approved library before anyone drafts.
-- `autorfp-ai-draft-blank-responses` drafts blank project answers from approved content and cites `referenceUrl`.
-
-General skills are synced from the marketing site. See `skills/*/SOURCE.md`.
 
 ## Copilot
 
@@ -56,8 +78,6 @@ A local install:
 copilot plugin install .
 ```
 
-Copilot and ChatGPT pin the APAC MCP URL `https://api.app.autorfp.ai/mcp`. Change that URL in the client for EU or US.
-
 VS Code can add the same GitHub repo under `chat.plugins.marketplaces`.
 
 GitHub's default catalogs are `copilot-plugins` and `awesome-copilot`. There is no separate AutoRFP submit form. Install from this repository. A later pull request to `awesome-copilot` is optional.
@@ -67,7 +87,7 @@ GitHub's default catalogs are `copilot-plugins` and `awesome-copilot`. There is 
 The same Agent Plugins files are the package. ChatGPT can also read `.agents/plugins/marketplace.json`.
 
 1. In ChatGPT, open Settings, then Security and login, and turn on Developer mode.
-2. Add the MCP server `https://api.app.autorfp.ai/mcp` (or the EU or US host).
+2. Add the AutoRFP.ai MCP server for your workspace region (see [MCP setup](https://learn.autorfp.ai/en/articles/15029444-how-to-connect-to-ai-assistants-mcp-server)).
 3. Install this plugin from the repo marketplace, or from a personal marketplace pointed at this checkout.
 4. Start a new chat before using the skills.
 
