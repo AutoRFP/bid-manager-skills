@@ -6,9 +6,10 @@
   "plugins": [
     {
       "name": "bid-manager-skills",
+      "version": "1.0.6",
       "source": {
         "source": "url",
-        "url": "https://github.com/AutoRFP/bid-manager-skills.git"
+        "url": "https://github.com/AutoRFP/bid-manager-skills"
       },
       "policy": {
         "installation": "AVAILABLE",

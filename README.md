@@ -38,7 +38,7 @@ Agent skills for bid and proposal teams, built by [AutoRFP.ai](https://autorfp.a
 
 ### AutoRFP.ai workflows
 
-These skills use the read-only [AutoRFP.ai MCP](https://learn.autorfp.ai/en/articles/15029444-how-to-connect-to-ai-assistants-mcp-server) when it is connected in your assistant.
+These skills use the read-only [AutoRFP.ai MCP](https://learn.autorfp.ai/en/articles/15029444-how-to-connect-to-ai-assistants-mcp-server) when it is connected in your assistant. **AutoRFP Setup** is the onboarding skill; **Library Clean**, **Project Coverage**, and **Draft Blank Responses** are the three MCP-backed workflows.
 
 **AutoRFP Setup** — Connect AutoRFP.ai before library, coverage, or blank-response skills. Use it when tools are missing or you need the right connector for your region.
 
@@ -84,16 +84,28 @@ GitHub's default catalogs are `copilot-plugins` and `awesome-copilot`. There is 
 
 ## ChatGPT and Codex
 
-The same Agent Plugins files are the package. ChatGPT can also read `.agents/plugins/marketplace.json`.
+The same Agent Plugins files are the package: root [`plugin.json`](plugin.json), [`mcp.json`](mcp.json), [`skills/`](skills/), and [`.agents/plugins/marketplace.json`](.agents/plugins/marketplace.json) for repo-scoped discovery.
 
-1. In ChatGPT, open Settings, then Security and login, and turn on Developer mode.
-2. Add the AutoRFP.ai MCP server for your workspace region (see [MCP setup](https://learn.autorfp.ai/en/articles/15029444-how-to-connect-to-ai-assistants-mcp-server)).
-3. Install this plugin from the repo marketplace, or from a personal marketplace pointed at this checkout.
+**Local testing**
+
+1. In ChatGPT, open Settings → Security and login, and turn on Developer mode.
+2. Install from this repo’s marketplace entry (or point a personal marketplace at this checkout).
+3. Connect and authenticate the bundled MCP (`https://api.app.autorfp.ai/mcp` for APAC). EU/US: change the server URL in client settings per [AutoRFP Setup](skills/autorfp-setup/SKILL.md).
 4. Start a new chat before using the skills.
 
-Public listing in the ChatGPT and Codex plugin directory is a review on the OpenAI side. Self-serve publishing is still rolling out. Workspace admins can publish a tested local plugin from ChatGPT Plugins to their workspace without listing it publicly.
+Do not enable this plugin’s bundled AutoRFP MCP and the separate AutoRFP directory MCP plugin in the same chat.
 
-The ChatGPT App Directory is a different submission. It takes the hosted MCP URL, privacy policy, screenshots, and test prompts at the OpenAI dashboard. It does not take this git repo. That submission is product work on the AutoRFP MCP, tracked in [AutoRFP/mcp](https://github.com/AutoRFP/mcp).
+**Public directory (OpenAI)**
+
+Listing uses the universal Plugins Directory shared by ChatGPT and Codex: build a ZIP, upload it in the OpenAI dashboard, connect and scan the MCP server, then submit for review. This GitHub repo is the source of truth; it is not submitted by URL alone.
+
+```bash
+npm test
+npm run validate
+npm run package:openai
+```
+
+See [docs/openai-submission-checklist.md](docs/openai-submission-checklist.md) for duplicate-MCP notes, domain verification, demo credentials, and release gates. MCP tool metadata and OAuth demo accounts are maintained on the production server ([AutoRFP/mcp](https://github.com/AutoRFP/mcp)).
 
 ## Claude plugin directory
 
@@ -110,9 +122,9 @@ Submit one of these while signed in as an owner, admin, or a Console role that c
 - https://platform.claude.com/plugins/submit
 - https://claude.ai/admin-settings/directory/submissions/plugins/new
 
-The claude.ai form needs a Team or Enterprise organization. Console is the path for an individual author. After approval, new commits on this repo are picked up without another form. Bump `version` in `.claude-plugin/plugin.json` and `plugin.json` when you want a named release.
+The claude.ai form needs a Team or Enterprise organization. Console is the path for an individual author. After approval, new commits on this repo are picked up without another form. Bump `version` in `.claude-plugin/plugin.json`, root `plugin.json`, and both marketplace entries when you want a named release.
 
-Listing metadata lives in `.claude-plugin/plugin.json`: `displayName`, `homepage` at `https://autorfp.ai/skills/`, `documentationUrl` for the [MCP setup article](https://learn.autorfp.ai/en/articles/15029444-how-to-connect-to-ai-assistants-mcp-server), `privacyPolicyUrl` at `https://autorfp.ai/privacy`, `termsOfServiceUrl` at `https://autorfp.ai/legal/msa`, and `.claude-plugin/icon.svg`. The directory reads those listing URLs; Claude Code may ignore keys it does not define at load time. Root `plugin.json` stays for Copilot and ChatGPT.
+Listing metadata lives in `.claude-plugin/plugin.json`: `displayName`, `homepage` at `https://autorfp.ai/skills/`, `documentationUrl` for the [MCP setup article](https://learn.autorfp.ai/en/articles/15029444-how-to-connect-to-ai-assistants-mcp-server), `privacyPolicyUrl` at `https://autorfp.ai/legal/privacy`, `termsOfServiceUrl` at `https://autorfp.ai/legal/msa`, and `.claude-plugin/icon.svg`. OpenAI listing URLs and review test cases live under `extensions.com.openai` in root `plugin.json`.
 
 Some directory policy holds are expected and need a reviewer note, not a repo change:
 

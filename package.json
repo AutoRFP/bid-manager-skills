@@ -6,7 +6,8 @@
   "scripts": {
     "sync": "node scripts/sync-marketing-skills.mjs",
     "validate": "node scripts/validate-plugin.mjs",
-    "test": "node --test scripts/lib/marketing-sync.test.mjs"
+    "package:openai": "node scripts/package-openai-plugin.mjs",
+    "test": "node --test scripts/lib/marketing-sync.test.mjs scripts/lib/plugin-validation.test.mjs"
   },
   "devDependencies": {
     "yaml": "^2.8.1"

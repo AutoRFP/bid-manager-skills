@@ -5,17 +5,19 @@
   },
   "owner": {
     "name": "AutoRFP.ai",
-    "email": "support@autorfp.ai"
+    "email": "support@autorfp.ai",
+    "url": "https://autorfp.ai"
   },
   "plugins": [
     {
       "name": "bid-manager-skills",
       "source": "./",
-      "description": "Bid-manager skills for qualification, compliance, competitive positioning, and customer research. Three AutoRFP.ai skills run when the AutoRFP MCP is connected.",
-      "version": "1.0.5",
+      "description": "Bid-manager skills for qualification, compliance, competitive positioning, and customer research. Three MCP-backed AutoRFP.ai workflows plus AutoRFP Setup when the read-only AutoRFP MCP is connected.",
+      "version": "1.0.6",
       "author": {
         "name": "AutoRFP.ai",
-        "email": "support@autorfp.ai"
+        "email": "support@autorfp.ai",
+        "url": "https://autorfp.ai"
       },
       "homepage": "https://autorfp.ai/skills/",
       "repository": "https://github.com/AutoRFP/bid-manager-skills",
@@ -26,7 +28,8 @@
         "tender",
         "proposal",
         "compliance",
-        "autorfp"
+        "autorfp",
+        "mcp"
       ],
       "category": "productivity"
     }

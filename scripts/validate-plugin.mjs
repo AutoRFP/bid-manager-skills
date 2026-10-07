@@ -4,6 +4,15 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parse as parseYaml } from 'yaml';
 
+import {
+  combinedSkillIdentityLength,
+  skillBodyAfterFrontmatter,
+  validateAgentsMarketplace,
+  validateOpenAiExtension,
+  validateSemver,
+  validateVersionParity,
+} from './lib/plugin-validation.mjs';
+
 const repoRoot = join(fileURLToPath(new URL('.', import.meta.url)), '..');
 const errors = [];
 const fail = (message) => errors.push(message);
@@ -16,12 +25,13 @@ const agentPlugin = readJson(join(repoRoot, 'plugin.json'));
 const claudeMcp = readJson(join(repoRoot, '.mcp.json'));
 const agentMcp = readJson(join(repoRoot, 'mcp.json'));
 const copilotMarketplace = readJson(join(repoRoot, '.github/plugin/marketplace.json'));
+const agentsMarketplace = readJson(join(repoRoot, '.agents/plugins/marketplace.json'));
 const config = readJson(join(repoRoot, 'scripts/sync-config.json'));
 
 if (plugin.name !== 'bid-manager-skills') fail('Claude plugin name must be bid-manager-skills');
 if (plugin.displayName !== 'Bid Manager Skills') fail('Claude plugin displayName must be Bid Manager Skills');
-if (plugin.privacyPolicyUrl !== 'https://autorfp.ai/privacy') {
-  fail('Claude plugin privacyPolicyUrl must be https://autorfp.ai/privacy');
+if (plugin.privacyPolicyUrl !== 'https://autorfp.ai/legal/privacy') {
+  fail('Claude plugin privacyPolicyUrl must be https://autorfp.ai/legal/privacy');
 }
 if (plugin.termsOfServiceUrl !== 'https://autorfp.ai/legal/msa') {
   fail('Claude plugin termsOfServiceUrl must be https://autorfp.ai/legal/msa');
@@ -40,6 +50,14 @@ if (!plugin.description) fail('Claude plugin description is required');
 if (plugin.userConfig !== undefined) {
   fail('Claude plugin must not declare userConfig; MCP URL is pinned to the registered APAC endpoint');
 }
+
+validateSemver(agentPlugin.version, fail);
+validateVersionParity(agentPlugin.version, [
+  ['Claude plugin', plugin.version],
+  ['Claude marketplace entry', marketplace.plugins?.[0]?.version],
+  ['Copilot marketplace entry', copilotMarketplace.plugins?.[0]?.version],
+], fail);
+
 const apacMcpUrl = 'https://api.app.autorfp.ai/mcp';
 if (marketplace.name !== 'bid-manager-skills') fail('marketplace name must be bid-manager-skills');
 if (marketplace.description) fail('marketplace description must live under metadata for claude plugin validate');
@@ -59,7 +77,24 @@ if (agentMcp.mcpServers?.['autorfp-ai']?.url !== apacMcpUrl) {
 if (claudeMcp.mcpServers?.['autorfp-ai']?.url !== apacMcpUrl) {
   fail('Claude MCP URL must match the registered APAC AutoRFP endpoint');
 }
+if (claudeMcp.mcpServers?.['autorfp-ai']?.type !== 'http') {
+  fail('Claude .mcp.json transport type must be http');
+}
+if (agentMcp.mcpServers?.['autorfp-ai']?.type !== 'streamable-http') {
+  fail('Agent Plugins mcp.json transport type must be streamable-http');
+}
 if (copilotMarketplace.plugins?.[0]?.name !== plugin.name) fail('Copilot marketplace plugin name drifted');
+if (copilotMarketplace.plugins?.[0]?.repository !== agentPlugin.repository) {
+  fail('Copilot marketplace repository must match root plugin.json');
+}
+
+validateOpenAiExtension(agentPlugin, repoRoot, fail);
+validateAgentsMarketplace(agentsMarketplace, agentPlugin, fail);
+
+const openAi = agentPlugin.extensions?.['com.openai']?.interface;
+if (openAi?.displayName !== plugin.displayName) {
+  fail('OpenAI displayName must match Claude displayName');
+}
 
 const requiredSkills = [
   'autorfp-ai-library-clean',
@@ -79,6 +114,7 @@ for (const denied of config.denyPackageIds) {
 }
 
 const kebab = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const skillNames = new Set();
 for (const name of skillDirs) {
   const skillPath = join(skillsDir, name, 'SKILL.md');
   if (!existsSync(skillPath)) {
@@ -96,11 +132,16 @@ for (const name of skillDirs) {
     fail(`${name} has an invalid skill name`);
   }
   if (data.name !== name) fail(`${name} frontmatter name must match the folder`);
+  if (skillNames.has(data.name)) fail(`duplicate skill name ${data.name}`);
+  skillNames.add(data.name);
   if (typeof data.description !== 'string' || !data.description.trim()) {
     fail(`${name} is missing a description`);
   } else if (data.description.length > 1024) {
     fail(`${name} description is ${data.description.length} chars (max 1024)`);
   }
+  if (!skillBodyAfterFrontmatter(source)) fail(`${name} SKILL.md body must not be empty`);
+  const identityLen = combinedSkillIdentityLength(agentPlugin.name, data.name);
+  if (identityLen > 64) fail(`${name} combined plugin:skill identity is ${identityLen} chars (max 64)`);
   const shredder = join(skillsDir, name, 'rfp-shredder');
   if (existsSync(shredder)) fail(`${name} still contains rfp-shredder`);
 }

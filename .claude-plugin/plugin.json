@@ -1,9 +1,9 @@
 {
   "name": "bid-manager-skills",
   "displayName": "Bid Manager Skills",
-  "description": "Bid-manager skills for qualification, compliance, competitive positioning, and customer research. Three AutoRFP.ai skills run when the AutoRFP MCP is connected. Bundled MCP: https://api.app.autorfp.ai/mcp (APAC). EU and US: use the registered AutoRFP.ai connector or https://api.eu.autorfp.ai/mcp and https://api.us.autorfp.ai/mcp.",
-  "version": "1.0.5",
-  "privacyPolicyUrl": "https://autorfp.ai/privacy",
+  "description": "Bid-manager skills for qualification, compliance, competitive positioning, and customer research. Three MCP-backed AutoRFP.ai workflows plus AutoRFP Setup when the read-only AutoRFP MCP is connected. Bundled MCP: https://api.app.autorfp.ai/mcp (APAC). EU and US: use the registered AutoRFP.ai connector or https://api.eu.autorfp.ai/mcp and https://api.us.autorfp.ai/mcp.",
+  "version": "1.0.6",
+  "privacyPolicyUrl": "https://autorfp.ai/legal/privacy",
   "termsOfServiceUrl": "https://autorfp.ai/legal/msa",
   "documentationUrl": "https://learn.autorfp.ai/en/articles/15029444-how-to-connect-to-ai-assistants-mcp-server",
   "author": {
